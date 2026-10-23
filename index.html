@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Корсет за 20 минут</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: спортивная карточка тренировки — неделя сверху, затем разминка и тренировка из трёх частей (корсет, гантели, заминка) сеткой карточек с рисунками-схемами */
+:root{
+  --bg:#F1F4F3; --surface:#FFFFFF; --panel:#E7EDEB; --line:#D3DBD8;
+  --ink:#17201E; --ink-2:#5B6966; --ghost:#A6B2AF; --chip:#E3EAE8;
+  --accent:#2C58CF; --accent-soft:#E2E9FA; --warm:#C46F1C; --warm-soft:#F5E7D7;
+  --f-display:"Oswald","Arial Narrow","Roboto Condensed",sans-serif;
+  --f-body:"Golos Text","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1413; --surface:#171E1D; --panel:#1E2826; --line:#2A3532;
+  --ink:#E3E9E7; --ink-2:#9BA8A5; --ghost:#4F5D5A; --chip:#22302D;
+  --accent:#88A7FF; --accent-soft:#1D2848; --warm:#EFA052; --warm-soft:#3A2A19; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1413; --surface:#171E1D; --panel:#1E2826; --line:#2A3532;
+  --ink:#E3E9E7; --ink-2:#9BA8A5; --ghost:#4F5D5A; --chip:#22302D;
+  --accent:#88A7FF; --accent-soft:#1D2848; --warm:#EFA052; --warm-soft:#3A2A19; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55}
+.wrap{max-width:1100px;margin:0 auto;padding-block:32px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:44px}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin:0 0 10px}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(36px,6.2vw,60px);line-height:1.02;letter-spacing:.01em;text-transform:uppercase;margin:0;text-wrap:balance}
+.lede{margin:14px 0 0;max-width:60ch;color:var(--ink-2);font-size:17px}
+h2{font-family:var(--f-display);font-weight:500;font-size:clamp(22px,3vw,28px);text-transform:uppercase;letter-spacing:.02em;margin:0;line-height:1.1;text-wrap:balance}
+.sub{margin:6px 0 0;color:var(--ink-2)}
+.sec-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px;margin-bottom:18px}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-top:22px;max-width:640px}
+.day{border-radius:10px;padding:10px 4px;text-align:center;background:var(--chip);color:var(--ink-2);display:grid;gap:2px;min-width:0}
+.day b{font-family:var(--f-mono);font-weight:500;font-size:12px;color:var(--ink)}
+.day span{font-size:12px;overflow-wrap:anywhere;line-height:1.2}
+.day.str{background:var(--accent-soft)} .day.str span{color:var(--accent);font-weight:600}
+.day.walk{background:var(--warm-soft)} .day.walk span{color:var(--warm);font-weight:600}
+.week-note{margin:10px 0 0;font-size:14px;color:var(--ink-2);max-width:62ch}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font-size:13px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend svg{width:30px;height:12px;flex:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));gap:16px}
+.grid.small{grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;min-width:0;transition:border-color .2s}
+.card.is-done{border-color:var(--accent)}
+.card{container-type:inline-size}
+.inner{display:flex;flex-direction:column;flex:1;min-width:0}
+.grid.workout{grid-template-columns:1fr}
+@media (min-width:760px){.grid.workout{grid-template-columns:1fr 1fr}}
+@container (min-width:470px){.inner{flex-direction:row}.inner .pic{flex:0 0 46%;display:flex;align-items:center;padding:10px}}
+.pic{background:var(--panel);padding:8px 8px 0}
+.pic svg{display:block;width:100%;height:auto}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1;min-width:0}
+.title-row{display:flex;align-items:baseline;gap:10px}
+.num{font-family:var(--f-mono);font-size:12px;color:var(--accent);flex:none}
+h3{font-family:var(--f-display);font-weight:500;font-size:21px;letter-spacing:.01em;margin:0;line-height:1.15;text-wrap:balance}
+.meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.chip{font-size:12.5px;background:var(--chip);color:var(--ink-2);padding:2px 10px;border-radius:999px}
+.chip.pair{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.dose{font-family:var(--f-mono);font-size:13px;color:var(--ink);font-variant-numeric:tabular-nums}
+.cue{margin:0;color:var(--ink-2);font-size:14.5px}
+.done{margin-top:auto;padding-top:6px;display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--ink-2);cursor:pointer;user-select:none}
+.done input{width:18px;height:18px;accent-color:var(--accent);margin:0;cursor:pointer}
+.progress{display:flex;align-items:center;gap:12px;font-family:var(--f-mono);font-size:13px;color:var(--ink-2)}
+.progress strong{color:var(--ink);font-weight:500}
+.parts{display:grid;gap:36px}
+.part{display:grid;gap:14px}
+.part-head{display:grid;gap:4px}
+.part-title{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px}
+.part-title h3{font-size:22px;text-transform:uppercase;letter-spacing:.03em}
+.part-title span{font-family:var(--f-mono);font-size:12.5px;color:var(--accent)}
+.part-note{margin:0;color:var(--ink-2);font-size:14.5px;max-width:70ch}
+button{font:inherit;font-family:var(--f-body);font-size:13px;background:transparent;color:var(--ink-2);border:1px solid var(--line);border-radius:8px;padding:5px 12px;cursor:pointer}
+button:hover{color:var(--ink);border-color:var(--ink-2)}
+button:focus-visible,.done input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:16px}
+.rule{border-top:3px solid var(--ink);padding-top:12px}
+.rule.warn{border-top-color:var(--warm)}
+.rule h3{font-size:19px;margin-bottom:6px}
+.rule p{margin:0;color:var(--ink-2);font-size:14.5px}
+.rule p+p{margin-top:6px}
+.note{margin:0;font-size:13px;color:var(--ink-2);max-width:70ch}
+/* svg */
+.limb{fill:none;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.l-near{stroke:var(--ink)} .l-far{stroke:var(--ink-2)} .l-ghost{stroke:var(--ghost);stroke-dasharray:4 4}
+.head{stroke-width:3}
+.head.main{fill:var(--panel);stroke:var(--ink)}
+.head.ghost{fill:none;stroke:var(--ghost);stroke-dasharray:4 4}
+.floor{stroke:var(--line);stroke-width:2}
+.arrow{fill:none;stroke:var(--accent);stroke-width:2.2;stroke-linecap:round}
+.ah{fill:var(--accent)}
+.hl{fill:var(--warm);opacity:.28}
+.guide{fill:none;stroke:var(--accent);stroke-width:1.6;stroke-dasharray:2 5;stroke-linecap:round}
+.tag{fill:var(--warm);font-family:var(--f-mono);font-size:9.5px}
+.frame{fill:none;stroke:var(--ink-2);stroke-width:4;stroke-linecap:round}
+.bodyshape{fill:var(--surface);stroke:var(--ink);stroke-width:2.6;stroke-linejoin:round}
+.blade{fill:var(--warm);fill-opacity:.25;stroke:var(--warm);stroke-width:1.6}
+.db-bar{fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linecap:round}
+.db-plate{fill:var(--ink)}
+.db.ghost .db-bar{stroke:var(--ghost);stroke-width:2;stroke-dasharray:3 3}
+.db.ghost .db-plate{fill:none;stroke:var(--ghost);stroke-width:1.4;stroke-dasharray:3 2}
+@media (prefers-reduced-motion: reduce){.card{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Спина · поясница · шея · руки · грудь</p>
+    <h1>Корсет за 20 минут</h1>
+    <p class="lede">Против сидячей работы: короткая разминка каждый час и тренировка три раза в неделю. Разминка, потом грудь, спина и руки с гантелями по 5 кг, потом корсет и заминка.</p>
+    <div class="week" aria-label="План недели">
+      <div class="day str"><b>Пн</b><span>Сила</span></div>
+      <div class="day walk"><b>Вт</b><span>Ходьба</span></div>
+      <div class="day str"><b>Ср</b><span>Сила</span></div>
+      <div class="day walk"><b>Чт</b><span>Ходьба</span></div>
+      <div class="day str"><b>Пт</b><span>Сила</span></div>
+      <div class="day walk"><b>Сб</b><span>Ходьба</span></div>
+      <div class="day"><b>Вс</b><span>Отдых</span></div>
+    </div>
+    <p class="week-note">Силовая тренировка около 45 минут. Ходьба 30–40 минут, из них 10–15 быстрым шагом. Разминка каждый час — каждый рабочий день.</p>
+    <div class="legend" aria-label="Как читать рисунки">
+      <span><svg viewBox="0 0 30 12"><path class="limb l-near" d="M3 6 L27 6"/></svg>конечное положение</span>
+      <span><svg viewBox="0 0 30 12"><path class="limb l-ghost" d="M3 6 L27 6"/></svg>исходное положение</span>
+      <span><svg viewBox="0 0 30 12"><defs><marker id="ah-lg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs><path class="arrow" d="M3 6 L25 6" marker-end="url(#ah-lg)"/></svg>движение</span>
+      <span><svg viewBox="0 0 30 12"><ellipse class="hl" cx="15" cy="6" rx="10" ry="5"/></svg>где работает или тянет</span>
+    </div>
+  </header>
+
+  <section aria-labelledby="h-hourly">
+    <div class="sec-head">
+      <div>
+        <h2 id="h-hourly">Каждый час · 1–2 минуты</h2>
+        <p class="sub">Закрылась часовая свеча — встал и сделал.</p>
+      </div>
+    </div>
+    <div class="grid small" id="hourly"></div>
+  </section>
+
+  <section aria-labelledby="h-workout">
+    <div class="sec-head">
+      <div>
+        <h2 id="h-workout">Тренировка · Пн, Ср, Пт</h2>
+        <p class="sub">По порядку: разминка, сила, корсет, заминка.</p>
+      </div>
+      <div class="progress"><span>Сделано сегодня: <strong id="count">0</strong> из <span id="total">17</span></span><button type="button" id="reset">Сбросить</button></div>
+    </div>
+    <div class="parts">
+      <div class="part">
+        <div class="part-head">
+          <div class="part-title"><h3>1 · Разминка</h3><span>≈ 5 мин</span></div>
+          <p class="part-note">Разогреть тело и включить мышцы, которые держат спину и лопатки. Лёгкий темп, без усталости.</p>
+        </div>
+        <div class="grid workout" id="w-warm"></div>
+      </div>
+      <div class="part">
+        <div class="part-head">
+          <div class="part-title"><h3>2 · Сила: грудь, спина, руки</h3><span>≈ 25 мин</span></div>
+          <p class="part-note">Самое тяжёлое, пока есть силы. Отжимания отдельно, отдых 60–90 секунд. Дальше пары: подход первого, сразу подход второго, отдых 60 секунд, три круга. От больших мышц к мелким: бицепс и трицепс в конце, потому что они помогают в жимах и тягах. Последние 2–3 повтора в подходе должны даваться тяжело. Первые две недели хватит двух кругов.</p>
+        </div>
+        <div class="grid workout" id="w-str"></div>
+      </div>
+      <div class="part">
+        <div class="part-head">
+          <div class="part-title"><h3>3 · Корсет</h3><span>≈ 12 мин</span></div>
+          <p class="part-note">После силовых: мышцы корсета держат спину в тяге и отжиманиях, поэтому их не утомляют заранее. Отдых 30–60 секунд.</p>
+        </div>
+        <div class="grid workout" id="w-core"></div>
+      </div>
+      <div class="part">
+        <div class="part-head">
+          <div class="part-title"><h3>4 · Заминка</h3><span>≈ 3 мин</span></div>
+        </div>
+        <div class="grid workout" id="w-cool"></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-rules">
+    <h2 id="h-rules" style="margin-bottom:18px">Правила</h2>
+    <div class="rules">
+      <div class="rule"><h3>Прогрессия</h3><p>Каждую неделю добавляй 1–2 повтора или 5–10 секунд к удержанию. Сначала техника, потом объём.</p></div>
+      <div class="rule"><h3>Гантели 5 кг</h3><p>Для рук это рабочий вес, для груди и спины лёгкий. Усложняй темпом: дошёл до верхней границы повторов — опускай за 3–4 секунды и держи паузу внизу.</p><p>Когда и так все круги даются легко, нужны гантели тяжелее: разборные до 10–15 кг. Если гантели разборные, перед тренировкой проверь замки.</p></div>
+      <div class="rule warn"><h3>Когда остановиться</h3><p>Лёгкое жжение в мышцах — нормально. Острая боль, прострел в ногу или руку, онемение — стоп и к врачу.</p><p>Если спина или шея уже болят, сначала покажись врачу или реабилитологу.</p></div>
+      <div class="rule"><h3>Если — то</h3><p>Если сегодня Пн, Ср или Пт — тренировка до 09:30, до подготовки к сессии. Старт не позже 08:45.</p><p>Если закрылась часовая свеча — встаю на 1–2 минуты.</p></div>
+    </div>
+  </section>
+
+  <p class="note">Общая схема для здорового человека, не медицинская рекомендация. Рисунки упрощённые: смотри на направление движения и положение спины.</p>
+</div>
+
+<script>
+(function(){
+  const P = p => p[0] + ' ' + p[1];
+  const limb = (a,b,c,k) => `<path class="limb ${k}" d="M${P(a)}L${P(b)}L${P(c)}"/>`;
+  function fig(j, ghost){
+    const kn = ghost ? 'l-ghost' : 'l-near', kf = ghost ? 'l-ghost' : 'l-far';
+    let s = '';
+    if (j.fa) s += limb(j.N, j.fa[0], j.fa[1], kf);
+    if (j.fl) s += limb(j.P, j.fl[0], j.fl[1], kf);
+    s += j.C ? `<path class="limb ${kn}" d="M${P(j.N)}Q${P(j.C)} ${P(j.P)}"/>` : `<path class="limb ${kn}" d="M${P(j.N)}L${P(j.P)}"/>`;
+    if (j.nl) s += limb(j.P, j.nl[0], j.nl[1], kn);
+    s += `<path class="limb ${kn}" d="M${P(j.N)}L${P(j.H)}"/>`;
+    s += `<circle class="head ${ghost ? 'ghost' : 'main'}" cx="${j.H[0]}" cy="${j.H[1]}" r="${j.r || 8}"/>`;
+    if (j.na) s += limb(j.N, j.na[0], j.na[1], kn);
+    return s;
+  }
+  const floor = y => `<line class="floor" x1="6" y1="${y}" x2="194" y2="${y}"/>`;
+  const tag = (x,y,t,a) => `<text class="tag" x="${x}" y="${y}" text-anchor="${a || 'middle'}">${t}</text>`;
+  const hl = (x,y,rx,ry) => `<ellipse class="hl" cx="${x}" cy="${y}" rx="${rx}" ry="${ry}"/>`;
+  const ar = (id,d,dbl) => `<path class="arrow" d="${d}" marker-end="url(#ah-${id})"${dbl ? ` marker-start="url(#ah-${id})"` : ''}/>`;
+  const db = (x,y,r,g) => `<g class="db${g ? ' ghost' : ''}" transform="translate(${x} ${y}) rotate(${r || 0})"><path class="db-bar" d="M-6 0L6 0"/><rect class="db-plate" x="-10" y="-5.5" width="4.5" height="11" rx="1.5"/><rect class="db-plate" x="5.5" y="-5.5" width="4.5" height="11" rx="1.5"/></g>`;
+  const svg = (id,label,inner) => `<svg viewBox="0 0 200 120" role="img" aria-label="${label}"><defs><marker id="ah-${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker></defs>${inner}</svg>`;
+
+  const quad = {na:[[80,83],[80,103]], fa:[[85,83],[85,103]], nl:[[130,101],[160,103]], fl:[[135,101],[165,103]]};
+  const lying = {N:[62,98],P:[104,98],H:[48,96],nl:[[136,72],[150,103]],fl:[[140,72],[154,103]]};
+
+  const DRAW = {
+    warm: id => floor(113)
+      + fig({N:[100,34],P:[100,70],H:[100,20],na:[[78,36],[56,36]],fa:[[122,36],[144,36]],fl:[[95,92],[94,112]],nl:[[107,82],[106,99]]})
+      + ar(id,'M44 30 A10 10 0 1 1 46 44') + ar(id,'M156 30 A10 10 0 1 0 154 44')
+      + ar(id,'M120 100 L120 80')
+      + tag(52,62,'круги руками') + tag(126,72,'колени выше','start'),
+    cat: id => floor(105)
+      + fig(Object.assign({N:[80,62],P:[130,62],C:[105,82],H:[64,46]}, quad), true)
+      + fig(Object.assign({N:[80,62],P:[130,62],C:[105,34],H:[66,74]}, quad))
+      + tag(105,22,'выдох') + tag(106,92,'вдох'),
+    bird: id => floor(105)
+      + fig(Object.assign({N:[80,62],P:[130,62],H:[66,54]}, quad), true)
+      + fig({N:[80,62],P:[130,62],H:[66,55],na:[[58,60],[36,58]],fa:[[85,83],[85,103]],nl:[[130,101],[160,103]],fl:[[158,60],[186,58]]})
+      + tag(108,44,'пауза 3 с'),
+    bug: id => floor(105)
+      + hl(100,101,18,4)
+      + fig({N:[70,97],P:[122,97],H:[56,95],na:[[72,76],[72,56]],fa:[[76,76],[76,56]],nl:[[122,70],[150,70]],fl:[[126,70],[154,70]]}, true)
+      + fig({N:[70,97],P:[122,97],H:[56,95],na:[[50,90],[30,86]],fa:[[76,76],[76,56]],nl:[[122,70],[150,70]],fl:[[148,90],[176,95]]})
+      + ar(id,'M64 50 Q40 52 32 74') + ar(id,'M160 66 Q180 72 180 86')
+      + tag(100,117,'поясница прижата'),
+    bridge: id => floor(105)
+      + fig({N:[62,98],P:[104,98],H:[48,96],na:[[84,101],[106,102]],nl:[[136,72],[150,103]],fl:[[140,72],[154,103]]}, true)
+      + hl(104,83,9,6)
+      + fig({N:[62,98],P:[104,83],H:[48,96],na:[[84,101],[106,102]],nl:[[140,70],[150,103]],fl:[[144,70],[154,103]]})
+      + ar(id,'M104 72 L104 52') + tag(97,60,'таз вверх','end'),
+    side: id => floor(105)
+      + fig({N:[70,72],P:[120,86],H:[57,68],na:[[70,103],[48,103]],fa:[[92,64],[114,82]],nl:[[152,95],[184,103]],fl:[[152,97],[182,104]]})
+      + tag(152,52,'можно с колен'),
+    plank: id => floor(105)
+      + `<path class="guide" d="M62 56 L194 92"/>`
+      + fig({N:[80,72],P:[130,86],H:[66,68],na:[[80,103],[56,103]],fa:[[84,103],[60,104]],nl:[[160,95],[190,103]],fl:[[160,97],[188,104]]})
+      + tag(130,117,'тело — одна линия'),
+    yt: id => floor(105)
+      + fig({N:[80,98],P:[130,100],H:[66,94],na:[[60,101],[40,102]],nl:[[158,101],[186,102]]}, true)
+      + fig({N:[80,98],P:[130,100],H:[66,93],na:[[60,90],[40,82]],nl:[[158,101],[186,102]]})
+      + ar(id,'M30 101 L30 82')
+      + `<path class="limb l-far" d="M152 8 L170 26 L188 8"/><path class="limb l-near" d="M148 32 L192 32"/><path class="limb l-near" d="M170 21 L170 52"/><path class="limb l-near" d="M164 72 L170 52 L176 72"/><circle class="head main" cx="170" cy="15" r="6"/>`
+      + tag(145,11,'Y','end') + tag(143,35,'T','end') + tag(170,86,'вид сверху'),
+    push: id => floor(105)
+      + fig({N:[72,92],P:[118,98],H:[59,90],na:[[90,97],[70,103]],nl:[[150,102],[176,86]]}, true)
+      + fig({N:[70,70],P:[118,88],H:[57,65],na:[[70,86],[70,103]],fa:[[74,86],[74,103]],nl:[[150,101],[176,86]],fl:[[152,102],[178,88]]})
+      + ar(id,'M38 92 L38 62', true) + tag(128,60,'сначала с колен'),
+    chin: id => floor(105)
+      + hl(89,95,5,3)
+      + fig({N:[96,96],P:[146,97],H:[80,94],r:9,na:[[118,100],[140,102]],nl:[[170,76],[188,103]],fl:[[174,76],[192,103]]})
+      + ar(id,'M68 80 Q80 66 94 78') + tag(81,58,'кивок'),
+    stretch: id => floor(105)
+      + `<path class="frame" d="M40 105 L40 10"/>`
+      + hl(71,40,5,7)
+      + fig({N:[62,30],P:[68,62],H:[64,16],na:[[43,30],[43,12]],fa:[[66,46],[72,60]],nl:[[80,84],[84,104]],fl:[[62,84],[52,104]]})
+      + fig({N:[150,96],P:[184,88],H:[138,99],na:[[130,103],[110,103]],nl:[[160,103],[192,104]]})
+      + tag(130,40,'30 с на сторону') + tag(160,74,'поза ребёнка'),
+
+    'd-row': id => floor(105)
+      + `<path class="frame" d="M46 74 L156 74 M54 74 L54 105 M148 74 L148 105"/>`
+      + hl(98,52,13,5)
+      + `<path class="limb l-ghost" d="M72 50 L75 71 L77 90"/>` + db(77,92,0,true)
+      + fig({N:[72,50],P:[124,54],H:[57,46],fa:[[66,62],[62,73]],fl:[[126,72],[150,72]],nl:[[128,80],[140,104]],na:[[92,37],[86,57]]})
+      + db(86,58,0)
+      + ar(id,'M96 96 Q104 82 98 68')
+      + tag(112,30,'локоть к тазу') + tag(100,117,'опора — стул или диван'),
+    'd-press': id => floor(105)
+      + hl(76,93,11,5)
+      + `<path class="limb l-ghost" d="M62 98 L80 101 L80 82"/>` + db(80,79,0,true)
+      + fig(Object.assign({na:[[64,78],[66,58]]}, lying))
+      + db(66,55,0)
+      + ar(id,'M96 84 L96 56', true) + tag(128,44,'пауза у пола'),
+    'd-rfly': id => `<path class="limb l-ghost" d="M80 42 L72 72 L70 96"/><path class="limb l-ghost" d="M120 42 L128 72 L130 96"/>`
+      + db(70,99,0,true) + db(130,99,0,true)
+      + `<path class="bodyshape" d="M79 40 Q100 34 121 40 L117 108 L83 108 Z"/>`
+      + `<ellipse class="blade" cx="91" cy="60" rx="6" ry="12"/><ellipse class="blade" cx="109" cy="60" rx="6" ry="12"/>`
+      + `<path class="limb l-near" d="M80 42 L56 48 L34 44"/><path class="limb l-near" d="M120 42 L144 48 L166 44"/>`
+      + db(34,44,90) + db(166,44,90)
+      + ar(id,'M58 104 Q30 100 32 62') + ar(id,'M142 104 Q170 100 168 62')
+      + `<path class="limb l-near" d="M100 29 L100 37"/><circle class="head main" cx="100" cy="20" r="9"/>`
+      + tag(190,116,'вид сзади','end'),
+    'd-fly': id => floor(105)
+      + `<path class="limb l-ghost" d="M76 88 L56 95 L36 91"/><path class="limb l-ghost" d="M124 88 L144 95 L164 91"/>`
+      + db(34,91,90,true) + db(166,91,90,true)
+      + `<rect class="bodyshape" x="70" y="82" width="60" height="22" rx="10"/>`
+      + hl(100,87,18,4)
+      + `<path class="limb l-near" d="M76 88 L82 66 L91 50"/><path class="limb l-near" d="M124 88 L118 66 L109 50"/>`
+      + db(91,46,90) + db(109,46,90)
+      + `<circle class="head main" cx="100" cy="95" r="9"/>`
+      + ar(id,'M38 78 Q48 46 78 40') + ar(id,'M162 78 Q152 46 122 40')
+      + tag(100,117,'вид со стороны головы'),
+    'd-curl': id => floor(113)
+      + hl(97,42,4,8)
+      + `<path class="limb l-ghost" d="M95 53 L94 73"/>` + db(94,76,0,true)
+      + fig({N:[100,32],P:[105,66],H:[99,18],fl:[[103,90],[100,112]],nl:[[106,90],[105,112]],na:[[95,53],[80,39]]})
+      + `<path class="limb l-near" d="M91 17 L87 20"/>`
+      + db(80,39,-47)
+      + ar(id,'M78 82 Q62 70 68 54') + tag(150,58,'локоть прижат'),
+    'd-tri': id => floor(105)
+      + hl(58,88,4,9)
+      + `<path class="limb l-ghost" d="M62 78 L44 84"/>` + db(43,83,72,true)
+      + fig(Object.assign({na:[[62,78],[62,58]]}, lying))
+      + db(62,55,0)
+      + ar(id,'M34 74 Q32 52 46 48') + tag(124,44,'плечо неподвижно'),
+
+    'h-chin': id => fig({N:[96,64],P:[96,118],H:[112,46],r:9}, true)
+      + `<path class="limb l-ghost" d="M121 46 L126 49"/>`
+      + fig({N:[96,64],P:[96,118],H:[96,44],r:9,na:[[92,88],[94,112]]})
+      + `<path class="limb l-near" d="M105 44 L110 47"/>`
+      + ar(id,'M118 24 L100 24') + tag(109,14,'назад'),
+    'h-blades': id => `<path class="limb l-near" d="M73 40 L64 72 L62 98"/><path class="limb l-near" d="M127 40 L136 72 L138 98"/>`
+      + `<path class="bodyshape" d="M72 40 Q100 34 128 40 L123 110 L77 110 Z"/>`
+      + `<path class="limb l-ghost" d="M100 42 L100 108"/>`
+      + `<ellipse class="blade" cx="87" cy="63" rx="7" ry="13"/><ellipse class="blade" cx="113" cy="63" rx="7" ry="13"/>`
+      + ar(id,'M76 48 L88 58') + ar(id,'M124 48 L112 58')
+      + `<path class="limb l-near" d="M100 29 L100 37"/><circle class="head main" cx="100" cy="20" r="9"/>`,
+    'h-ext': id => floor(113)
+      + fig({N:[100,32],P:[100,66],H:[100,18]}, true)
+      + fig({N:[112,34],P:[100,66],H:[117,21],na:[[126,50],[108,62]],nl:[[102,90],[100,112]],fl:[[98,90],[96,112]]})
+      + `<path class="limb l-near" d="M108 21 L104 24"/>`
+      + ar(id,'M134 66 Q146 44 132 22') + tag(64,40,'5 раз'),
+    'h-lunge': id => floor(105)
+      + hl(114,86,6,9)
+      + fig({N:[104,34],P:[104,72],H:[104,20],na:[[96,54],[82,70]],nl:[[128,103],[156,104]],fl:[[78,74],[76,104]]})
+      + `<path class="limb l-near" d="M95 20 L91 23"/>`
+      + tag(160,82,'тянет здесь')
+  };
+
+  const HOURLY = [
+    {id:'h-chin', n:'Подбородок назад', aim:'шея', dose:'10 раз', cue:'Голова уходит назад по горизонтали, взгляд прямо — будто делаешь «двойной подбородок».'},
+    {id:'h-blades', n:'Лопатки назад и вниз', aim:'верх спины', dose:'10 × 2–3 с', cue:'Сведи лопатки и опусти их к пояснице. Шея длинная, плечи к ушам не поднимаются.'},
+    {id:'h-ext', n:'Прогиб назад стоя', aim:'поясница', dose:'5 раз', cue:'Ладони на пояснице, плавно прогнись назад и вернись. Без рывков, амплитуда комфортная.'},
+    {id:'h-lunge', n:'Растяжка бедра в выпаде', aim:'передняя часть бедра', dose:'по 30 с на ногу', cue:'Колено задней ноги на полу, таз подкручен под себя. От сидения эти мышцы укорачиваются и тянут поясницу.'}
+  ];
+  const WARM = [
+    {id:'warm', n:'Шаг на месте и круги руками', aim:'общий разогрев', dose:'2 мин', cue:'Минуту шагай на месте, высоко поднимая колени. Затем круги прямыми руками: 10 вперёд и 10 назад, сначала маленькие, потом шире.'},
+    {id:'cat', n:'Кошка–корова', aim:'подвижность спины', dose:'10 раз', cue:'На вдохе — прогиб вниз, взгляд вперёд. На выдохе — спина круглая, подбородок к груди. Медленно, без рывков.'},
+    {id:'bird', n:'Птица–собака', aim:'включить корсет', dose:'2 × 6 на сторону', cue:'Рука и противоположная нога тянутся в одну линию со спиной, пауза 3 секунды. Таз не заваливается вбок, поясница не прогибается.'},
+    {id:'yt', n:'Подъёмы рук Y и T лёжа', aim:'лопатки перед жимами и тягами', dose:'1 × 10', cue:'Лёжа на животе, лоб над полом. Сведи лопатки и подними руки буквой Y, затем буквой T. Без веса, шею не запрокидывай.'}
+  ];
+  const CORE = [
+    {id:'bug', n:'Мёртвый жук', aim:'пресс, глубокие мышцы', dose:'3 × 8 на сторону', cue:'Поясница всё время прижата к полу. Медленно опускай противоположные руку и ногу, на опускании выдох. Отрывается поясница — опускай не так низко.'},
+    {id:'bridge', n:'Ягодичный мост', aim:'ягодицы, разгрузка поясницы', dose:'3 × 12–15', cue:'Пятки ближе к тазу. Поднимай таз силой ягодиц до линии плечи — таз — колени и сожми ягодицы на 1–2 секунды наверху.'},
+    {id:'side', n:'Боковая планка', aim:'косые мышцы', dose:'3 × 20–30 с на сторону', cue:'Локоть под плечом, тело одной линией. Начни с колен, ноги согнуты, потом переходи на стопы. Таз не провисает.'},
+    {id:'plank', n:'Планка', aim:'весь корсет', dose:'3 × 20–40 с', cue:'Локти под плечами, пресс и ягодицы напряжены. Поясница не провисает, таз не задран, дыхание ровное.'}
+  ];
+  const STR = [
+    {id:'push', n:'Отжимания', aim:'грудь, трицепс', dose:'3 × 8–12', cue:'Сначала от стола или с колен, потом классические. Ладони чуть шире плеч, локти под углом около 45° к телу, корпус прямой. Отдых между подходами 60–90 секунд.'},
+    {id:'d-row', pair:'А', n:'Тяга гантели в наклоне', aim:'спина', dose:'3 × 15–20 на руку', cue:'Колено и ладонь на стуле или диване, спина ровная, почти параллельно полу. Тяни локоть к тазу, вверху сведи лопатку. Опускай за 3 секунды, корпус не разворачивай.'},
+    {id:'d-press', pair:'А', n:'Жим гантелей лёжа на полу', aim:'грудь, трицепс', dose:'3 × 15–20', cue:'Лёжа на спине, колени согнуты, поясница прижата. Локти под углом около 45° к телу. Опускай, пока плечи не лягут на пол, пауза 1 секунда, выжми вверх.'},
+    {id:'d-rfly', pair:'Б', n:'Разведения в наклоне сидя', aim:'верх спины, осанка', dose:'3 × 12–15', cue:'Сядь на край стула, грудь к бёдрам, гантели у пяток. Разводи руки в стороны до уровня плеч, локти чуть согнуты, вверху сведи лопатки. Если техника ломается, делай без веса.'},
+    {id:'d-fly', pair:'Б', n:'Разведения лёжа на полу', aim:'грудь', dose:'3 × 12–15', cue:'Гантели над грудью, ладони смотрят друг на друга, локти чуть согнуты и угол не меняется. Разводи руки, пока плечи не коснутся пола, и своди по дуге, как будто обнимаешь бочку.'},
+    {id:'d-curl', pair:'В', n:'Молотковые сгибания', aim:'бицепс, предплечья', dose:'3 × 12–15 на руку', cue:'Стоя, ладони смотрят друг на друга. Поднимай гантели к плечам поочерёдно, локоть прижат к боку и не уходит вперёд. Корпус не раскачивай, опускай медленно.'},
+    {id:'d-tri', pair:'В', n:'Разгибания рук лёжа', aim:'трицепс', dose:'3 × 12–15', cue:'Лёжа на полу, руки с гантелями вертикально вверх. Сгибай только локти и медленно опускай гантели к ушам, плечи неподвижны. Разгибай до прямых рук.'}
+  ];
+  const COOL = [
+    {id:'chin', n:'Подбородок назад лёжа', aim:'глубокие мышцы шеи', dose:'3 × 10, пауза 5 с', cue:'Лёжа на спине, мягко кивни, будто делаешь двойной подбородок: затылок скользит по полу. Голову не поднимай.'},
+    {id:'stretch', n:'Растяжка груди и поза ребёнка', aim:'заминка', dose:'по 30 с', cue:'Предплечье на дверном косяке на уровне плеча, шаг вперёд до растяжения в груди. Затем сядь на пятки, руки вперёд, расслабь спину.'}
+  ];
+
+  function card(ex, i, withDone){
+    const num = withDone ? `<span class="num">${String(i + 1).padStart(2, '0')}</span>` : '';
+    const done = withDone ? `<label class="done"><input type="checkbox" id="done-${ex.id}" data-id="${ex.id}"> Сделано сегодня</label>` : '';
+    const pair = ex.pair ? `<span class="chip pair">Пара ${ex.pair}</span>` : '';
+    return `<article class="card" id="card-${ex.id}"><div class="inner"><div class="pic">${svg(ex.id, ex.n, DRAW[ex.id](ex.id))}</div><div class="body"><div class="title-row">${num}<h3>${ex.n}</h3></div><div class="meta">${pair}<span class="chip">${ex.aim}</span><span class="dose">${ex.dose}</span></div><p class="cue">${ex.cue}</p>${done}</div></div></article>`;
+  }
+
+  document.getElementById('hourly').innerHTML = HOURLY.map((e, i) => card(e, i, false)).join('');
+  let k = 0;
+  [['w-warm', WARM], ['w-str', STR], ['w-core', CORE], ['w-cool', COOL]].forEach(([el, list]) => {
+    document.getElementById(el).innerHTML = list.map(e => card(e, k++, true)).join('');
+  });
+
+  const KEY = 'korset-' + new Date().toISOString().slice(0, 10);
+  let state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+  const boxes = Array.from(document.querySelectorAll('.done input'));
+  document.getElementById('total').textContent = boxes.length;
+  function render(){
+    let n = 0;
+    boxes.forEach(b => {
+      const on = !!state[b.dataset.id];
+      b.checked = on;
+      document.getElementById('card-' + b.dataset.id).classList.toggle('is-done', on);
+      if (on) n++;
+    });
+    document.getElementById('count').textContent = n;
+  }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  boxes.forEach(b => b.addEventListener('change', () => { state[b.dataset.id] = b.checked; save(); render(); }));
+  document.getElementById('reset').addEventListener('click', () => { state = {}; save(); render(); });
+  render();
+})();
+</script>
+</body>
+</html>
